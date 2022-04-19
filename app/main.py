@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from models import Base
+from .models import Base
 from routes import router
 from config import engine
 
