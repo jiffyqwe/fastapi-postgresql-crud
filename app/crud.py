@@ -1,6 +1,6 @@
 from sqlalchemy.orm import Session
 from .models import Data
-from schemas import DataSchema
+from .schemas import DataSchema
 
 
 def get_data(db: Session, skip: int = 0, limit: int = 100):
