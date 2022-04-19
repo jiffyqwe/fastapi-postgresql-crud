@@ -1,6 +1,6 @@
 from fastapi import APIRouter, HTTPException, Path
 from fastapi import Depends
-from config import SessionLocal
+from .config import SessionLocal
 from sqlalchemy.orm import Session
 from schemas import DataSchema, Request, Response, RequestData
 
