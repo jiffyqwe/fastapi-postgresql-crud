@@ -37,7 +37,7 @@ deactivate () {
 # unset irrelevant variables
 deactivate nondestructive
 
-VIRTUAL_ENV="C:\Giya\Latihan\lemoncode12\practice-code\fastapi-postgresql-crud\venv"
+VIRTUAL_ENV="C:\Users\User\fastapi-postgresql-crud\venv"
 export VIRTUAL_ENV
 
 _OLD_VIRTUAL_PATH="$PATH"

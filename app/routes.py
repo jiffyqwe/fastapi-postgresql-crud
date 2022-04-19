@@ -2,7 +2,7 @@ from fastapi import APIRouter, HTTPException, Path
 from fastapi import Depends
 from config import SessionLocal
 from sqlalchemy.orm import Session
-from schemas import BookSchema, Request, Response, RequestBook
+from schemas import DataSchema, Request, Response, RequestData
 
 import crud
 
@@ -18,27 +18,26 @@ def get_db():
 
 
 @router.post("/create")
-async def create_book_service(request: RequestBook, db: Session = Depends(get_db)):
-    crud.create_book(db, book=request.parameter)
+async def create_data_entry(request: RequestData, db: Session = Depends(get_db)):
+    crud.create_data(db, data=request.parameter)
     return Response(status="Ok",
                     code="200",
-                    message="Book created successfully").dict(exclude_none=True)
+                    message="data created successfully").dict(exclude_none=True)
 
 
 @router.get("/")
-async def get_books(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
-    _books = crud.get_book(db, skip, limit)
-    return Response(status="Ok", code="200", message="Success fetch all data", result=_books)
+async def get_datas(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
+    _datas = crud.get_data(db, skip, limit)
+    return Response(status="Ok", code="200", message="Success fetch all data", result=_datas)
 
-
-@router.patch("/update")
-async def update_book(request: RequestBook, db: Session = Depends(get_db)):
-    _book = crud.update_book(db, book_id=request.parameter.id,
-                             title=request.parameter.title, description=request.parameter.description)
-    return Response(status="Ok", code="200", message="Success update data", result=_book)
 
 
 @router.delete("/delete")
-async def delete_book(request: RequestBook,  db: Session = Depends(get_db)):
-    crud.remove_book(db, book_id=request.parameter.id)
+async def delete_data(request: RequestData,  db: Session = Depends(get_db)):
+    crud.remove_data(db, data_id=request.parameter.id)
     return Response(status="Ok", code="200", message="Success delete data").dict(exclude_none=True)
+
+@router.post("/check")
+async def check_exists(request: RequestData, db: Session = Depends(get_db)):
+    _exists = crud.exists(db, request.parameter.user_agent, request.parameter.ip_address)
+    return Response(status="Ok", code="200", message="Success", result=_exists)
