@@ -1,3 +1,4 @@
+from ipaddress import ip_address
 from fastapi import APIRouter, HTTPException, Path
 from fastapi import Depends
 from .config import SessionLocal
@@ -40,4 +41,7 @@ async def delete_data(request: RequestData,  db: Session = Depends(get_db)):
 @router.post("/check")
 async def check_exists(request: RequestData, db: Session = Depends(get_db)):
     _exists = exists(db, request.parameter.user_agent, request.parameter.ip_address)
+    print("Request : " + str(request))
+    print("IP and USER-AGENT : "  + str(request.parameter.user_agent) + " " + str(request.parameter.ip_address))
+    print("Exists : " + str(_exists))
     return Response(status="Ok", code="200", message="Success", result=_exists)
