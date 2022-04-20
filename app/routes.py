@@ -40,6 +40,7 @@ async def delete_data(request: RequestData,  db: Session = Depends(get_db)):
 
 @router.post("/check")
 async def check_exists(request: RequestData, db: Session = Depends(get_db)):
+    print('Before Exists')
     _exists = exists(db, request.parameter.user_agent, request.parameter.ip_address)
     print("Request : " + str(request))
     print("IP and USER-AGENT : "  + str(request.parameter.user_agent) + " " + str(request.parameter.ip_address))
