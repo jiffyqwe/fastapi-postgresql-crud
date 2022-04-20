@@ -47,4 +47,4 @@ def update_data(db: Session, data_id: int, user_agent: str, ip_address: str):
 def exists(db: Session, user_agent: str, ip_address: str):
     _data_agent_exists = get_data_by_agent(db, user_agent) is not None
     _data_address_exists = get_data_by_address(db, ip_address) is not None
-    return _data_address_exists and _data_address_exists
+    return _data_agent_exists and _data_address_exists
